@@ -14,14 +14,13 @@ from torch.utils import data
 
 ROOT = '/media/data2TB/jeremyshi/data/cilia/'
 
+train_joint_transformer = joint_transforms.Compose([
+    joint_transforms.RandomSizedCrop(256),
+    joint_transforms.RandomHorizontallyFlip()
+    ])
+
 # transform input
 img_transform = transforms.Compose([
-    transforms.ToPILImage(),
-#     transforms.RandomCrop((256, 256)),
-    transforms.Resize((512,512)),
-#       transforms.RandomHorizontalFlip(),
-#       transforms.RandomVerticalFlip(),
-#     transforms.Pad(16),
     transforms.ToTensor()
 ])
 
@@ -35,3 +34,7 @@ train_loader = data.DataLoader(cilia, batch_size=5, shuffle=True)
 
 # To test whether cilia can be iterated.
 input_a, target_a = next(iter(cilia))
+
+# if we want to see the results
+plt.imshow(input_a[1, 0, :, :], cmap='gray')
+plt.imshow(target_a[1, 0, :, :], cmap='gray')
