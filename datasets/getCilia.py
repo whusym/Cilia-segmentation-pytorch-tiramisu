@@ -11,7 +11,6 @@ https://github.com/ZijunDeng/pytorch-semantic-segmentation/blob/master/datasets/
 
 import json
 from numpy import array, zeros
-from scipy.misc import imread
 from glob import glob
 import os
 import numpy as np
@@ -19,7 +18,7 @@ import torch
 import torchvision
 from torchvision import transforms
 from torch.utils import data
-
+from imageio import imread
 
 def load_input(base, split):
     '''
@@ -36,11 +35,11 @@ def load_input(base, split):
     # (alternatively, one can also only load the paths here and use torch loader later.)
     for imgHash in all_hash:
         inputs = glob(base + split + '/data/' + imgHash + '/*.png')
-        input_imgs.append(array([imread(f, mode='L') for f in inputs]).sum(axis=0))
+        input_imgs.append(array([imread(f, pilmode='L') for f in inputs]).sum(axis=0))
 
         if split != 'test':
             masks = glob(base + split + '/masks/' + imgHash + '.png')
-            masks_imgs.append(array([imread(f, mode='L') for f in masks]))
+            masks_imgs.append(array([imread(f, pilmode='L') for f in masks]))
 
     # check whether if inputs and masks have the desired length
     if len(input_imgs) == 0 or len(masks_imgs) == 0:
@@ -51,12 +50,12 @@ def load_input(base, split):
     # reshape the input and its type
     for i in range(len(input_imgs)):
         input_imgs[i] = input_imgs[i].reshape(input_imgs[i].shape + (1,))
-        input_imgs[i] = input_imgs[i].astype(np.uint8)
+        input_imgs[i] = input_imgs[i].astype(np.int32) # np.int16 might be ok too
 
     # reshape the mask and its type
     for i in range(len(masks_imgs)):
         masks_imgs[i] = masks_imgs[i].reshape(masks_imgs[i][0].shape + (1,))
-        masks_imgs[i] = masks_imgs[i].astype(np.uint8)
+        masks_imgs[i] = masks_imgs[i].astype(np.int32)  # np.int16 might be ok too
     return input_imgs, masks_imgs
 
 
@@ -85,6 +84,11 @@ class CiliaData(data.Dataset):
 
     def __getitem__(self, index):
         img, target = self.imgs[index], self.masks[index]
+
+        # transform the img and target into PIL images (for cropping etc.)
+        toPIL = transforms.ToPILImage()
+        img, target = toPIL(img), toPIL(target)
+        
         # we need joint transform because we need to crop the same area
         if self.joint_transform is not None:
             img, target = self.joint_transform(img, target)
