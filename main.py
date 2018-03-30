@@ -1,5 +1,6 @@
 '''
 Main function for training and testing.
+For a more interactive exploration, check the Jupyter notebook.
 
 Inspired from: https://github.com/bfortuner/pytorch_tiramisu/blob/master/train.ipynb
 
@@ -11,6 +12,15 @@ TODO: write postprocessing methods. (i.e. how to get labels and put them in a fi
 from datasets import getCilia
 from torchvision import transforms
 from torch.utils import data
+from utils import joint_transforms
+from utils import training_utils
+
+# Check GPU
+if torch.cuda.get_device_name(0):
+    print ('Your GPU is {}'.format(torch.cuda.get_device_name(0)))
+else:
+    print ('No GPU found!')
+
 
 ROOT = '/media/data2TB/jeremyshi/data/cilia/'
 
@@ -19,7 +29,7 @@ train_joint_transformer = joint_transforms.Compose([
     joint_transforms.RandomHorizontallyFlip()
     ])
 
-# transform input
+
 img_transform = transforms.Compose([
     transforms.ToTensor()
 ])
