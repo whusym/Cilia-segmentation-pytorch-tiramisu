@@ -92,8 +92,8 @@ class CiliaData(data.Dataset):
         if self.input_transform is not None:
             img = self.input_transform(img)
         if self.target_transform is not None:
-            target = self.target_transform(target)
-        return img, target
+            target = self.target_transform(target).long()
+        return img, target[0, :, :]
 
     def __len__(self):
         return len(self.imgs)
