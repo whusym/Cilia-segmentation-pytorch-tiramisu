@@ -43,6 +43,7 @@ def load_input(base, split):
             raise RuntimeError('Found 0 images, please check the data set')
         if len(input_imgs) != len(masks_imgs):
             raise RuntimeError('Must be the same amount of the input and mask images!')
+        # reshape the mask
         for i in range(len(masks_imgs)):
             masks_imgs[i] = masks_imgs[i].reshape(masks_imgs[i][0].shape + (1, ))
             masks_imgs[i] = masks_imgs[i].astype(np.int32)
@@ -52,7 +53,10 @@ def load_input(base, split):
         # input_imgs[i] = input_imgs[i].reshape(input_imgs[i].shape + (1,))
         input_imgs[i] = input_imgs[i].astype(np.uint8)
 
-    return input_imgs, masks_imgs
+    if split != 'test':
+        return input_imgs, masks_imgs
+    else:
+        return input_imgs
 
 
 class CiliaData(data.Dataset):
