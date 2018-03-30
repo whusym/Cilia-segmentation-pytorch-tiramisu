@@ -32,17 +32,20 @@ def load_input(base, split):
     for imgHash in all_hash:
         inputs = glob(base + split + '/data/' + imgHash + '/*.png')
         input_imgs.append(array([imread(f, pilmode='RGB') for f in inputs]).mean(axis=0))
-
         if split != 'test':
             masks = glob(base + split + '/masks/' + imgHash + '.png')
             masks_imgs.append(array([imread(f, pilmode='I') for f in masks]))
 
 
     # check whether if they are good
-    if len(input_imgs) == 0 or len(masks_imgs) == 0:
-        raise RuntimeError('Found 0 images, please check the data set')
-    if len(input_imgs) != len(masks_imgs):
-        raise RuntimeError('Must be the same amount of the input and mask images!')
+    if split != 'test':
+        if len(input_imgs) == 0 or len(masks_imgs) == 0:
+            raise RuntimeError('Found 0 images, please check the data set')
+        if len(input_imgs) != len(masks_imgs):
+            raise RuntimeError('Must be the same amount of the input and mask images!')
+        for i in range(len(masks_imgs)):
+            masks_imgs[i] = masks_imgs[i].reshape(masks_imgs[i][0].shape + (1, ))
+            masks_imgs[i] = masks_imgs[i].astype(np.int32)
 
     # reshape the input
     for i in range(len(input_imgs)):
@@ -50,9 +53,7 @@ def load_input(base, split):
         input_imgs[i] = input_imgs[i].astype(np.uint8)
 
     # reshape the mask
-    for i in range(len(masks_imgs)):
-        masks_imgs[i] = masks_imgs[i].reshape(masks_imgs[i][0].shape + (1, ))
-        masks_imgs[i] = masks_imgs[i].astype(np.int32)
+
     return input_imgs, masks_imgs
 
 
