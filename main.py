@@ -14,6 +14,9 @@ from torchvision import transforms
 from torch.utils import data
 from utils import joint_transforms
 from utils import training_utils
+import torch.nn as nn
+from models import tiramisu
+import torchvision
 
 # Check GPU
 if torch.cuda.get_device_name(0):
@@ -21,30 +24,25 @@ if torch.cuda.get_device_name(0):
 else:
     print ('No GPU found!')
 
-
+# Specify the path for folder
 ROOT = '/media/data2TB/jeremyshi/data/cilia/'
 
+# Joint_tranformation for training inputs and targets
 train_joint_transformer = joint_transforms.Compose([
     joint_transforms.RandomSizedCrop(256),
     joint_transforms.RandomHorizontallyFlip()
     ])
 
-
+# Tranformation for training inputs and targets (change them to tensors)
 img_transform = transforms.Compose([
     transforms.ToTensor()
 ])
 
 # using the same transformation process now; just for test-run.
 cilia = getCilia.CiliaData(ROOT,
-                input_transform=img_transform,
-                target_transform=img_transform)
+                joint_transform = train_joint_transformer,
+                input_transform = img_transform,
+                target_transform = img_transform)
 
 # loading the data using native PyTorch loader
 train_loader = data.DataLoader(cilia, batch_size=5, shuffle=True)
-
-# To test whether cilia can be iterated.
-input_a, target_a = next(iter(cilia))
-
-# if we want to see the results
-plt.imshow(input_a[1, 0, :, :], cmap='gray')
-plt.imshow(target_a[1, 0, :, :], cmap='gray')
