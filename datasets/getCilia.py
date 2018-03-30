@@ -22,40 +22,37 @@ from imageio import imread
 
 def load_input(base, split):
     '''
-    Helper function to get the foler path.
-    'base' is the parameter for the path of the data
-    'split' could be 'train', 'validate', or 'test'.
-    Return lists of training imgs and masks.
+    Helper function to get the foler path. Under base (could be train, val, or test).
+    Return the path for under the folders of training imgs and masks.
     '''
     input_imgs = []
     masks_imgs = []
     all_hash = sorted(os.listdir(base + split + '/data/'))
 
-    # read in the data using scipy.misc.imread
-    # (alternatively, one can also only load the paths here and use torch loader later.)
     for imgHash in all_hash:
         inputs = glob(base + split + '/data/' + imgHash + '/*.png')
-        input_imgs.append(array([imread(f, pilmode='L') for f in inputs]).sum(axis=0))
+        input_imgs.append(array([imread(f, pilmode='RGB') for f in inputs]).mean(axis=0))
 
         if split != 'test':
             masks = glob(base + split + '/masks/' + imgHash + '.png')
-            masks_imgs.append(array([imread(f, pilmode='L') for f in masks]))
+            masks_imgs.append(array([imread(f, pilmode='I') for f in masks]))
 
-    # check whether if inputs and masks have the desired length
+
+    # check whether if they are good
     if len(input_imgs) == 0 or len(masks_imgs) == 0:
         raise RuntimeError('Found 0 images, please check the data set')
     if len(input_imgs) != len(masks_imgs):
         raise RuntimeError('Must be the same amount of the input and mask images!')
 
-    # reshape the input and its type
+    # reshape the input
     for i in range(len(input_imgs)):
-        input_imgs[i] = input_imgs[i].reshape(input_imgs[i].shape + (1,))
-        input_imgs[i] = input_imgs[i].astype(np.int32) # np.int16 might be ok too
+        # input_imgs[i] = input_imgs[i].reshape(input_imgs[i].shape + (1,))
+        input_imgs[i] = input_imgs[i].astype(np.uint8)
 
-    # reshape the mask and its type
+    # reshape the mask
     for i in range(len(masks_imgs)):
-        masks_imgs[i] = masks_imgs[i].reshape(masks_imgs[i][0].shape + (1,))
-        masks_imgs[i] = masks_imgs[i].astype(np.int32)  # np.int16 might be ok too
+        masks_imgs[i] = masks_imgs[i].reshape(masks_imgs[i][0].shape + (1, ))
+        masks_imgs[i] = masks_imgs[i].astype(np.int32)
     return input_imgs, masks_imgs
 
 
@@ -88,7 +85,7 @@ class CiliaData(data.Dataset):
         # transform the img and target into PIL images (for cropping etc.)
         toPIL = transforms.ToPILImage()
         img, target = toPIL(img), toPIL(target)
-        
+
         # we need joint transform because we need to crop the same area
         if self.joint_transform is not None:
             img, target = self.joint_transform(img, target)
