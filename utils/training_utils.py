@@ -111,3 +111,9 @@ def predict(model, input_loader, n_batches=1):
         pred = get_predictions(output)
         predictions.append([input,target,pred])
     return predictions
+
+def get_test_results(model, pic):
+    data = Variable(pic.cuda(), volatile = True)
+    output = model(data)
+    pred = get_predictions(output)
+    return pred
