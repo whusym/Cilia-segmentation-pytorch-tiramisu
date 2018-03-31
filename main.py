@@ -42,7 +42,8 @@ cilia = getCilia.CiliaData(ROOT,
                 joint_transform = train_joint_transformer,
                 input_transform = img_transform,
                 target_transform = img_transform)
-train_loader = data.DataLoader(cilia, batch_size=5, shuffle=True)
+
+train_loader = data.DataLoader(cilia, batch_size=2, shuffle=True)
 
 
 val_cilia = CiliaData(ROOT, 'validate',
