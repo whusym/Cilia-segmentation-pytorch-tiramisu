@@ -65,7 +65,7 @@ test_cilia = CiliaData(ROOT, 'test',
 # loading the data using native PyTorch loader
 
 
-model = tiramisu.FCDenseNet67(n_classes=12).cuda()
+model = tiramisu.FCDenseNet67(n_classes=3).cuda()
 model.apply(training_utils.weights_init)
 optimizer = torch.optim.RMSprop(model.parameters(), lr=LR, weight_decay=1e-4)
 criterion = nn.NLLLoss().cuda()
