@@ -17,6 +17,7 @@ from utils import training_utils
 import torch.nn as nn
 from models import tiramisu
 import torchvision
+from imageio import imwrite
 
 if __name__ == '__main__':
     # Check GPU
