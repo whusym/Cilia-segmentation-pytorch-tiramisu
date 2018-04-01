@@ -27,7 +27,7 @@ https://stackoverflow.com/questions/19932130/python-iterate-through-folders-then
 import cv2
 import numpy as np
 import os
-
+import argparse
 
 """
 Set the argument for the source path.
@@ -57,6 +57,8 @@ for root,dirs,files in os.walk(path):
     for file in files:
         if file.endswith('.png') and ( not file.startswith('m')):
             
+            print(os.path.join(root,file))
+            
             #Apply median filter of kernel size 5.
             img = cv2.imread(os.path.join(root,file))
             medianImg = cv2.medianBlur(img,5)
@@ -84,4 +86,6 @@ for root,dirs,files in os.walk(path):
             except OSError as e:
                 raise    
             cv2.imwrite(os.path.join(op_path3,file),medianImg)
-        
+
+
+print('DONE!')        
