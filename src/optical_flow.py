@@ -93,7 +93,6 @@ for root,dirs,files in os.walk(path):
             #output path
             #create the folder,if it is already not there.
             op_path = dir_root + "_opt"
-            
             try:
                 if not os.path.exists(op_path):
                     os.makedirs(op_path)
