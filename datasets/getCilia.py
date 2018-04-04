@@ -19,6 +19,7 @@ import torchvision
 from torchvision import transforms
 from torch.utils import data
 from imageio import imread
+from PIL import Image
 
 def load_input(base, split):
     '''
@@ -28,10 +29,10 @@ def load_input(base, split):
     input_imgs = []
     masks_imgs = []
     all_hash = sorted(os.listdir(base + split + '/data/'))
-
+    
     for imgHash in all_hash:
-        inputs = glob(base + split + '/data/' + imgHash + '/*.png')
-        input_imgs.append(array([imread(f, pilmode='RGB') for f in inputs]).mean(axis=0))
+        inputs = glob(base + split + '/data/' + imgHash + '/frame0000.png')
+        input_imgs.append(array([imread(f, pilmode='I') for f in inputs]).mean(axis=0))
         if split != 'test':
             masks = glob(base + split + '/masks/' + imgHash + '.png')
             masks_imgs.append(array([imread(f, pilmode='I') for f in masks]))
@@ -50,7 +51,8 @@ def load_input(base, split):
 
     # reshape the input
     for i in range(len(input_imgs)):
-        # input_imgs[i] = input_imgs[i].reshape(input_imgs[i].shape + (1,))
+#         input_imgs[i] = input_imgs[i] / 255.0
+        input_imgs[i] = input_imgs[i].reshape(input_imgs[i].shape + (1,))
         input_imgs[i] = input_imgs[i].astype(np.uint8)
 
     if split != 'test':
@@ -61,14 +63,10 @@ def load_input(base, split):
 
 class CiliaData(data.Dataset):
     '''
-    PyTorch class of dataset for loading input and target data.
-
+    From https://github.com/bfortuner/pytorch_tiramisu/blob/master/datasets/camvid.py and 
+    https://github.com/ZijunDeng/pytorch-semantic-segmentation/blob/master/datasets/cityscapes.py
+    PyTorch class of dataset for loading input and target data. 
     __init__ starts a class.
-    'root' is the root path of the dataset.
-    'joint_transform' is used for transforming inputs and masks together.
-    'input_transform' is used for transforming inputs.
-    'target_transform' is used for transforming masks.
-
     __getitem__ builds iterator of pairs of input and target images.
     __len__ returns the length of the dataset
     '''
@@ -80,23 +78,36 @@ class CiliaData(data.Dataset):
         self.input_transform = input_transform
         self.target_transform = target_transform
         self.joint_transform = joint_transform
-        self.imgs, self.masks = load_input(self.root, split)
-
+        if split != 'test':
+            self.imgs, self.masks = load_input(self.root, split)
+        else:
+            self.imgs = load_input(self.root, split)
+    
     def __getitem__(self, index):
-        img, target = self.imgs[index], self.masks[index]
-
-        # transform the img and target into PIL images (for cropping etc.)
-        toPIL = transforms.ToPILImage()
-        img, target = toPIL(img), toPIL(target)
-
-        # we need joint transform because we need to crop the same area
-        if self.joint_transform is not None:
-            img, target = self.joint_transform(img, target)
+        
+        img = self.imgs[index]
+        
+        if self.split != 'test':
+            target = self.masks[index]
+            target [target == 1] = 0
+            # transform the img and target into PIL images (for cropping etc.)
+            toPIL = transforms.ToPILImage()
+            img, target = toPIL(img), toPIL(target)
+#             img, target = img, toPIL(target)
+#             img = img / 255.0
+            # we need joint transform because we need to crop the same area
+            if self.joint_transform is not None:
+                img, target = self.joint_transform(img, target)
+            if self.target_transform is not None:
+                target = self.target_transform(target).long()
+                
         if self.input_transform is not None:
             img = self.input_transform(img)
-        if self.target_transform is not None:
-            target = self.target_transform(target).long()
-        return img, target[0, :, :]
-
+            
+        if self.split != 'test':
+            return img, target[0, :, :]
+        else:
+            return img
+    
     def __len__(self):
         return len(self.imgs)
