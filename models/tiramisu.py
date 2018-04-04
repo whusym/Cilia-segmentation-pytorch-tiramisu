@@ -99,22 +99,22 @@ class FCDenseNet(nn.Module):
         return out
 
 
-def FCDenseNet57(n_classes):
+def FCDenseNet57(n_classes, in_channels):
     return FCDenseNet(
-        in_channels=3, down_blocks=(4, 4, 4, 4, 4),
+        in_channels=in_channels, down_blocks=(4, 4, 4, 4, 4),
         up_blocks=(4, 4, 4, 4, 4), bottleneck_layers=4,
         growth_rate=12, out_chans_first_conv=48, n_classes=n_classes)
 
 
-def FCDenseNet67(n_classes):
+def FCDenseNet67(n_classes, in_channels):
     return FCDenseNet(
-        in_channels=3, down_blocks=(5, 5, 5, 5, 5),
+        in_channels=in_channels, down_blocks=(5, 5, 5, 5, 5),
         up_blocks=(5, 5, 5, 5, 5), bottleneck_layers=5,
         growth_rate=16, out_chans_first_conv=48, n_classes=n_classes)
 
 
-def FCDenseNet103(n_classes):
+def FCDenseNet103(n_classes, in_channels):
     return FCDenseNet(
-        in_channels=3, down_blocks=(4,5,7,10,12),
+        in_channels=in_channels, down_blocks=(4,5,7,10,12),
         up_blocks=(12,10,7,5,4), bottleneck_layers=15,
-growth_rate=16, out_chans_first_conv=48, n_classes=n_classes)
+        growth_rate=16, out_chans_first_conv=48, n_classes=n_classes)

@@ -5,6 +5,8 @@ test.txt
 test_tiny.txt
 train.txt
 train_tiny.txt
+.results/
+.weights/
 
 # notebook playground
 preprocessing-loading.ipynb
