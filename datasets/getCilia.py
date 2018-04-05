@@ -51,7 +51,6 @@ def load_input(base, split):
 
     # reshape the input
     for i in range(len(input_imgs)):
-#         input_imgs[i] = input_imgs[i] / 255.0
         input_imgs[i] = input_imgs[i].reshape(input_imgs[i].shape + (1,))
         input_imgs[i] = input_imgs[i].astype(np.uint8)
 
@@ -71,7 +70,7 @@ class CiliaData(data.Dataset):
     __len__ returns the length of the dataset
     '''
     def __init__(self, root, split='train', joint_transform=None,
-                 input_transform=None, target_transform=None):
+                 input_transform=None, target_transform=None, remove_cell=False):
         self.root = root
         assert split in ('train', 'validate', 'test')
         self.split = split
@@ -89,12 +88,11 @@ class CiliaData(data.Dataset):
         
         if self.split != 'test':
             target = self.masks[index]
-            target [target == 1] = 0
+            if remove_cell:
+                target [target == 1] = 0
             # transform the img and target into PIL images (for cropping etc.)
             toPIL = transforms.ToPILImage()
             img, target = toPIL(img), toPIL(target)
-#             img, target = img, toPIL(target)
-#             img = img / 255.0
             # we need joint transform because we need to crop the same area
             if self.joint_transform is not None:
                 img, target = self.joint_transform(img, target)
