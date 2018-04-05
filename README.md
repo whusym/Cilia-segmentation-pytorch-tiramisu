@@ -4,7 +4,7 @@ This is a PyTorch implementation of "The One Hundred Layers Tiramisu: Fully Conv
 
 This repository is benefited from Bendan Fortuner(@bfortuner)'s implementation (https://github.com/bfortuner/pytorch_tiramisu) and ZijunDeng(@ZijunDeng)'s implementation (https://github.com/ZijunDeng/pytorch-semantic-segmentation). For the Tiramisu paper, see [Jégou, Simon, et al. "The one hundred layers tiramisu: Fully convolutional densenets for semantic segmentation." Computer Vision and Pattern Recognition Workshops (CVPRW), 2017 IEEE Conference on. IEEE, 2017.](https://arxiv.org/abs/1611.09326) For other variations of DenseNet and the references for other preprocessing methods, check our [Wiki](https://github.com/dsp-uga/kampf/wiki) tab. (or press `g` `w` on your keyboard).
 
-<img src="media/cilia.png">
+<img src="media/cilia.png" width="600">
 (from the project write-up by Dr. Shannon Quinn. See https://quinngroup.github.io/people.html.)
 
 For more detailed information, see the notebook `demo.ipynb`.
@@ -51,7 +51,7 @@ It should pop up your default browser, and the next step is just to open `demo.i
 
 
 ## Results
-Our best final result is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of our results are like:
+Our best final result is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of what our results are like:
 
 <img src="media/result1.png">
 
