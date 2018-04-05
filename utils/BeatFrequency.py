@@ -1,6 +1,6 @@
 import numpy as np
 import numpy.fft as fft
-from skimage import data_dir,io,color
+from skimage import io
 import matplotlib
 import sys
 
