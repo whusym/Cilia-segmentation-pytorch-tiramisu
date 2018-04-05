@@ -77,6 +77,7 @@ class CiliaData(data.Dataset):
         self.input_transform = input_transform
         self.target_transform = target_transform
         self.joint_transform = joint_transform
+        self.remove_cell = remove_cell
         if split != 'test':
             self.imgs, self.masks = load_input(self.root, split)
         else:
@@ -88,7 +89,7 @@ class CiliaData(data.Dataset):
         
         if self.split != 'test':
             target = self.masks[index]
-            if remove_cell:
+            if self.remove_cell:
                 target [target == 1] = 0
             # transform the img and target into PIL images (for cropping etc.)
             toPIL = transforms.ToPILImage()
