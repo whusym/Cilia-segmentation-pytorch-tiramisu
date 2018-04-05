@@ -117,3 +117,10 @@ def get_test_results(model, pic):
     output = model(data)
     pred = get_predictions(output)
     return pred
+
+
+def get_test_results_cpu(model, pic):
+    data = Variable(pic, volatile = True)
+    output = model(data)
+    pred = get_predictions(output)
+    return pred
