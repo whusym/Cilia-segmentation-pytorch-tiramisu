@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# From Omid Setayeshfar (https://github.com/omid-s)
 
 # this script downloads files in the current directory and creates the structure as :
 # --train
