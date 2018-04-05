@@ -2,8 +2,7 @@
 
 This is a PyTorch implementation of "The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation" (https://arxiv.org/pdf/1611.09326.pdf). This repository is created over the course of two weeks for the project 4 of CSCI 8360 Data Science Practicum at University of Georgia in Spring 2018.
 
-This repository is benefited from Bendan Fortuner(@bfortuner)'s implementation (https://github.com/bfortuner/pytorch_tiramisu) and ZijunDeng(@ZijunDeng)'s implementation (https://github.com/ZijunDeng/pytorch-semantic-segmentation).
-
+This repository is benefited from Bendan Fortuner(@bfortuner)'s implementation (https://github.com/bfortuner/pytorch_tiramisu) and ZijunDeng(@ZijunDeng)'s implementation (https://github.com/ZijunDeng/pytorch-semantic-segmentation). For the Tiramisu paper, see [Jégou, Simon, et al. "The one hundred layers tiramisu: Fully convolutional densenets for semantic segmentation." Computer Vision and Pattern Recognition Workshops (CVPRW), 2017 IEEE Conference on. IEEE, 2017.](https://arxiv.org/abs/1611.09326)
 
 <img src="https://github.com/dsp-uga/kampf/blob/master/media/cilia.png">
 (from the project write-up by Dr. Shannon Quinn. See https://quinngroup.github.io/people.html.)
@@ -50,11 +49,24 @@ $ jupyter notebook
 ```
 It should pop up your default browser, and the next step is just to open `demo.ipynb`.
 
+
+## Results
+Our best final result is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of our results are like:
+<img src="https://github.com/dsp-uga/kampf/blob/master/media/result1.png">
+
+## TODO
+- More parameter tuning for the Tiramisu network.
+- Trying other different methods in preprocessing and integrate more preprocessing methods before feeding processed images into the network.
+
+
 ## Authors
 - [Maulik Shah] (https://github.com/mauliknshah)
 - [Yuanming Shi] (https://github.com/whusym)
 - [Jin Wang] (https://github.com/SundayWang)
 See the [contributors.md](https://github.com/dsp-uga/kampf/blob/master/contributors.md) file for detailed contributions by each team member.
+
+## How to Contribute
+We are welcome to any kind of contribution. If we want to contribute, just create a ticket!
 
 ## License
 LGPL-3.0. See [LICENSE](https://github.com/dsp-uga/kampf/blob/master/LICENSE) for details.
