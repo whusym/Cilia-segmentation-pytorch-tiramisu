@@ -47,7 +47,7 @@ Alternatively, you can also start a Jupyter Notebook environment, just navigate 
 ```
 $ jupyter notebook
 ```
-It should pop up your default browser, and the next step is just to open `demo.ipynb`.
+It should pop up your default browser, and the next step is just to open `demo.ipynb` and follow the instructions there.
 
 
 ## Results
