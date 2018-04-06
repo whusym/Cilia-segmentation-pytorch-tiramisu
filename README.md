@@ -9,7 +9,7 @@ The goal of this project is to identify Cilia from the given a series of images(
 
 The project is implemented as a part of a class requirement in the CSCI 8360 Data Science Practicum class offered in  Spring 2018 at University of Georgia .
 
-#Solution with the use of Tiramisu Network
+# Solution with the use of Tiramisu Network
 
 The solution we implemented is a PyTorch implementation of [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation](https://arxiv.org/pdf/1611.09326.pdf). We used a 103-layer Fully Convoluted DenseNet (Tiramisu) to generate our results.
 
