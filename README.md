@@ -1,6 +1,6 @@
 # Semantic Segmentation on Cilia Images using Tiramisu Network
 
-This is a PyTorch implementation of [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation](https://arxiv.org/pdf/1611.09326.pdf). This repository is created over the course of two weeks for the project 4 of CSCI 8360 Data Science Practicum at University of Georgia in Spring 2018. The goal of this project is to conduct semantic segmentation on time-series cilia motion images.
+This is a PyTorch implementation of [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation](https://arxiv.org/pdf/1611.09326.pdf). This repository is created over the course of two weeks for the project 4 of CSCI 8360 Data Science Practicum at University of Georgia in Spring 2018. The goal of this project is to conduct semantic segmentation on time-series cilia motion images. We use a 103-layer Fully Convoluted DenseNet (Tiramisu) to generate our test results.
 
 This repository is benefited from Bendan Fortuner(@bfortuner)'s implementation (https://github.com/bfortuner/pytorch_tiramisu) and ZijunDeng(@ZijunDeng)'s implementation (https://github.com/ZijunDeng/pytorch-semantic-segmentation). Huge thanks to them!
 
@@ -15,10 +15,10 @@ For more detailed information, see the notebook `demo.ipynb`.
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Again, the best way to get started is from the `demo.ipynb`.
 
-### My hardware setting
+### My Hardware Specs
 - CPU: Intel(R) Core(TM) i7-5960X CPU @ 3.00GHz
 - RAM: 64 GB
-- GPU: GeForce GTX 1080 Ti
+- GPU: Nvidia GeForce GTX 1080 Ti
 
 ### Prerequisites
 
@@ -57,6 +57,10 @@ $ jupyter notebook
 ```
 It should pop up your default browser, and the next step is just to open `demo.ipynb` and follow the instructions there.
 
+## Data Processing
+There are in total 211 videos (each with 100 frames) of cilia data. But in our network, we only take the first frame of it (because although cilia moves in these frames, the range is still not much. We do not take the mean of 100 frames, because the mean would protentially also confuse the network. So we just still to the first one.)
+
+Next, we separate these 211 images and their corresponding masks into training and validiation sets. We have different sizes of the training set in our experiment but in the end the ratio between training and validation datasets is around 9:1. (Because we need to choose a trained model based on the performance on the validation set.)
 
 ## Results
 Our best final result is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of what our results are like:
@@ -80,3 +84,8 @@ We are welcome to any kind of contribution. If we want to contribute, just creat
 
 ## License
 LGPL-3.0. See [LICENSE](https://github.com/dsp-uga/kampf/blob/master/LICENSE) for details.
+
+## More References
+We also benefited from these two following paper on the issues of cilia motion:
+[Lu, Charles, et al. "Stacked Neural Networks for end-to-end ciliary motion analysis." arXiv preprint arXiv:1803.07534 (2018).](https://arxiv.org/abs/1803.07534)
+[S. Quinn, M. Zahid, J. Durkin, R. Francis, C. W. Lo, and C. Chennubhotla. "Automated identification of abnormal respiratory ciliary motion in nasal biopsies." Science Translational Medicine.](http://stm.sciencemag.org/content/7/299/299ra124)
