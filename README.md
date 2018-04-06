@@ -1,6 +1,8 @@
 # Semantic Segmentation on Cilia Images 
 
-The project is implemented over the course of two weeks as a part of the CSCI 8360 Data Science Practicum class offered in Spring 2018 at University of Georgia. Here is some background. We know cilia are hairlike structures that are prevalent in almost every cell of your body. And the beat pattern of cilia in specific regions are related to a variety of syndromes in different organs. According to the project description, the goal of this project is "to identify Cilia from the given a series of images(frames) from a video taken with DIC optics of cilia biopsies." In the training dataset, there are total 211 videos available and each one is devided into a set of 100 images. A frame in this data set and its corresponding mask looks as below:
+The project is implemented over the course of two weeks as a part of the CSCI 8360 Data Science Practicum class offered in Spring 2018 at University of Georgia by team kampf.
+
+Here is some background. We know cilia are hairlike structures that are prevalent in almost every cell of your body. And the beat pattern of cilia in specific regions are related to a variety of syndromes in different organs. According to the project description, the goal of this project is "to identify cilia from the given a series of images(frames) from a video taken with DIC optics of cilia biopsies." In the training dataset, there are total 211 videos available and each one is divided 100 image frames. A frame in this data set and its corresponding mask looks as below:
 
 
 <img src="media/cilia.png" width="800" class="center">
@@ -66,10 +68,10 @@ There are in total 211 videos (each with 100 frames) of cilia data. But in our n
 
 Next, we separate these 211 images and their corresponding masks into training and validiation sets. We have different sizes of the training set in our experiment but in the end the ratio between training and validation datasets is around 9:1. (Because we need to choose a trained model based on the performance on the validation set.)
 
-There are also some independent pre-processing steps we have implemented, which can be found under the `utils` directory. Below is the list of preprocessing method (The description of the implementations are given in the wiki), which we applied:
+There are also some independent pre-processing steps we have implemented, which can be found under the `utils` directory. Below is the list of preprocessing method which we have applied (the description of them can also be found in the wiki) :
  1. Median Filter
  2. Optical Flow
- 3. Beat- Frequency.
+ 3. Beat Frequency.
 
 ## Results
 Our best final score is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of what our results are like:
@@ -78,7 +80,7 @@ Our best final score is 45.81168, which is an average IoU score for all 114 test
 
 ## TODO
 - More parameter tuning for the Tiramisu network.
-- Trying other different methods in preprocessing and integrate more preprocessing methods before feeding processed images into the network.
+- Applying more methods for image filtering and variance-detection before feeding the frames into the network.
 
 
 ## Authors
@@ -89,13 +91,14 @@ Our best final score is 45.81168, which is an average IoU score for all 114 test
 See the [contributors.md](https://github.com/dsp-uga/kampf/blob/master/contributors.md) file for detailed contributions by each team member.
 
 ## How to Contribute
-We are welcome to any kind of contribution. If we want to contribute, just create a ticket!
+We welcome any kind of contribution. If you want to contribute, just create a ticket!
 
 ## License
 LGPL-3.0. See [LICENSE](https://github.com/dsp-uga/kampf/blob/master/LICENSE) for details.
 
-## More References
-We also benefited from these two following paper on the issues of cilia motion:
+## Other References
+We also benefited from these two papers on cilia motion and segmentation:
+
 [Lu, Charles, et al. "Stacked Neural Networks for end-to-end ciliary motion analysis." arXiv preprint arXiv:1803.07534 (2018).](https://arxiv.org/abs/1803.07534)
 
 
