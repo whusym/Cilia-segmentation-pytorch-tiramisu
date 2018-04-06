@@ -15,7 +15,6 @@ import numpy as np
 res_glob = sorted(glob('p40401-1998/*.png'))
 res_glob_imgs = array([imread(f) for f in res_glob])
 res_glob_2 = sorted(glob('p40401-1751/*.png'))
-# print (res_glob_2[0][12:])
 res_glob_imgs_2 = array([imread(f) for f in res_glob_2])
 res_glob_3 = sorted(glob('p40401-1332/*.png'))
 res_glob_imgs_3 = array([imread(f) for f in res_glob_3])
@@ -65,5 +64,4 @@ concat_imgs = [res_glob_imgs[i] + res_glob_imgs_2[i] + res_glob_imgs_3[i] + res_
 for i in range(len(concat_imgs)):
     concat_imgs[i][concat_imgs[i] <= 15] = 0
     concat_imgs[i][concat_imgs[i] != 0] = 2
-    # concat_imgs[i][concat_imgs[i] <= 2] = 0
     imwrite('concatResults/' + res_glob_2[i][12:], concat_imgs[i].astype(np.uint8))
