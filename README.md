@@ -61,9 +61,9 @@ Our best final result is 45.81168, which is an average IoU score for all 114 tes
 
 
 ## Authors
-- [Maulik Shah] (https://github.com/mauliknshah)
-- [Yuanming Shi] (https://github.com/whusym)
-- [Jin Wang] (https://github.com/SundayWang)
+- [Maulik Shah](https://github.com/mauliknshah)
+- [Yuanming Shi](https://github.com/whusym)
+- [Jin Wang](https://github.com/SundayWang)
 See the [contributors.md](https://github.com/dsp-uga/kampf/blob/master/contributors.md) file for detailed contributions by each team member.
 
 ## How to Contribute
