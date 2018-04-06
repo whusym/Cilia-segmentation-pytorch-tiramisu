@@ -68,13 +68,15 @@ There are in total 211 videos (each with 100 frames) of cilia data. But in our n
 
 Next, we separate these 211 images and their corresponding masks into training and validiation sets. We have different sizes of the training set in our experiment but in the end the ratio between training and validation datasets is around 9:1. (Because we need to choose a trained model based on the performance on the validation set.)
 
-There are also some independent pre-processing steps we have implemented, which can be found under the `utils` directory. Below is the list of preprocessing method which we have applied (the description of them can also be found in the wiki) :
+There are also some independent pre-processing steps we have implemented, which can be found in other branches (not in `master`). Below is the list of preprocessing method which we have applied (the description of them can also be found in the wiki.) :
  1. Median Filter
  2. Optical Flow
  3. Beat Frequency.
 
+Note that in getting the final results, we did not apply any of these filters. For detailed filter techniques, check the `demo.ipynb` for details. Theoretically, maybe we can get segmentation results just based on optical flow or beat frequency, but there is no time implementing either of them. If you are intersted, check other branches and give them a try!
+
 ## Results
-Our best final score is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of what our results are like:
+Our best final score is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Our final results are ensembled from results of about two dozen models. Here is an example of what our results are like:
 
 <img src="media/result1.png">
 
@@ -94,7 +96,7 @@ See the [contributors.md](https://github.com/dsp-uga/kampf/blob/master/contribut
 We welcome any kind of contribution. If you want to contribute, just create a ticket!
 
 ## License
-LGPL-3.0. See [LICENSE](https://github.com/dsp-uga/kampf/blob/master/LICENSE) for details.
+MIT. See [LICENSE](https://github.com/dsp-uga/kampf/blob/master/LICENSE) for details.
 
 ## Other References
 We also benefited from these two papers on cilia motion and segmentation:
