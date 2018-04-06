@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# script for running Beat Frequency filter.
 trainPath=<trainPath>
 testPath=<testPath>
 filePath=<filePath>
@@ -15,4 +16,3 @@ while read line
 		cd $testPath/$line
 		python BeatFrequency.py $line
 	done<$filePath/test.txt
-
