@@ -1,6 +1,7 @@
-# Semantic Segmentation on Cilia Images using Tiramisu Network
+# Semantic Segmentation on Cilia Images 
 
 The project is implemented over the course of two weeks as a part of the CSCI 8360 Data Science Practicum class offered in Spring 2018 at University of Georgia. Here is some background. We know cilia are hairlike structures that are prevalent in almost every cell of your body. And the beat pattern of cilia in specific regions are related to a variety of syndromes in different organs. According to the project description, the goal of this project is "to identify Cilia from the given a series of images(frames) from a video taken with DIC optics of cilia biopsies." In the training dataset, there are total 211 videos available and each one is devided into a set of 100 images. A frame in this data set and its corresponding mask looks as below:
+
 
 <img src="media/cilia.png" width="800" class="center">
 (from the project description by Dr. Shannon Quinn. See https://quinngroup.github.io/people.html for his website and https://github.com/dsp-uga/sp18/raw/master/projects/p4/project4.pdf for the project description.)
@@ -96,4 +97,6 @@ LGPL-3.0. See [LICENSE](https://github.com/dsp-uga/kampf/blob/master/LICENSE) fo
 ## More References
 We also benefited from these two following paper on the issues of cilia motion:
 [Lu, Charles, et al. "Stacked Neural Networks for end-to-end ciliary motion analysis." arXiv preprint arXiv:1803.07534 (2018).](https://arxiv.org/abs/1803.07534)
+
+
 [S. Quinn, M. Zahid, J. Durkin, R. Francis, C. W. Lo, and C. Chennubhotla. "Automated identification of abnormal respiratory ciliary motion in nasal biopsies." Science Translational Medicine.](http://stm.sciencemag.org/content/7/299/299ra124)
