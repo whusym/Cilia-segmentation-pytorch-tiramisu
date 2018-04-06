@@ -1,23 +1,19 @@
 # Semantic Segmentation on Cilia Images 
 
-Cilia are microscopic hairlike structures that protrude from literally every cell in your body. They beat in regular, rhythmic patterns to perform myriad tasks, from moving nutrients in to moving irritants out to amplifying cell-cell signaling pathways to generating calcium fluid flow in early cell differentiation. Cilia, and their beating patterns, are increasingly being implicated in a wide variety of syndromes that affected multiple organs.
+The project is implemented over the course of two weeks as a part of the CSCI 8360 Data Science Practicum class offered in Spring 2018 at University of Georgia. Here is some background. We know cilia are hairlike structures that are prevalent in almost every cell of your body. And the beat pattern of cilia in specific regions are related to a variety of syndromes in different organs. According to the project description, the goal of this project is "to identify Cilia from the given a series of images(frames) from a video taken with DIC optics of cilia biopsies." In the training dataset, there are total 211 videos available and each one is devided into a set of 100 images. A frame in this data set and its corresponding mask looks as below:
 
-The goal of this project is to identify Cilia from the given a series of images(frames) from a video taken with DIC optics of cilia biopsies. There are total 211 videoes available and each one is devided into a set of 100 images. A frame in this data set looks as below:
 
 <img src="media/cilia.png" width="800" class="center">
-(From the project write-up by Dr. Shannon Quinn. See https://quinngroup.github.io/people.html.)
+(from the project description by Dr. Shannon Quinn. See https://quinngroup.github.io/people.html for his website and https://github.com/dsp-uga/sp18/raw/master/projects/p4/project4.pdf for the project description.)
 
-The project is implemented as a part of a class requirement in the CSCI 8360 Data Science Practicum class offered in  Spring 2018 at University of Georgia .
+# Implementation -- Tiramisu Network
+This repository is a PyTorch implementation of [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation](https://arxiv.org/pdf/1611.09326.pdf). We use a 103-layer Fully Convoluted DenseNet (Tiramisu) to generate our test results.
 
-# Solution with the use of Tiramisu Network
-
-The solution we implemented is a PyTorch implementation of [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation](https://arxiv.org/pdf/1611.09326.pdf). We used a 103-layer Fully Convoluted DenseNet (Tiramisu) to generate our results.
-
-This repository is benefited from Bendan Fortuner(@bfortuner)'s implementation (https://github.com/bfortuner/pytorch_tiramisu) and ZijunDeng(@ZijunDeng)'s implementation (https://github.com/ZijunDeng/pytorch-semantic-segmentation). Huge thanks to them!
+Our repository is benefited from Bendan Fortuner(@bfortuner)'s implementation (https://github.com/bfortuner/pytorch_tiramisu) and ZijunDeng(@ZijunDeng)'s implementation (https://github.com/ZijunDeng/pytorch-semantic-segmentation). Huge thanks to them!
 
 For other variations of DenseNet and the references for other preprocessing methods, check our [Wiki](https://github.com/dsp-uga/kampf/wiki) tab. (or press `g` `w` on your keyboard).
 
-For more detailed information, see the notebook `demo.ipynb`.
+For more detailed information, check out the notebook `demo.ipynb`.
 
 ## Getting Started
 
@@ -69,6 +65,11 @@ It should pop up your default browser, and the next step is just to open `demo.i
 There are in total 211 videos (each with 100 frames) of cilia data. But in our network, we only take the first frame of it (because although cilia moves in these frames, the range is still not much. We do not take the mean of 100 frames, because the mean would protentially also confuse the network. So we just stick to the first one.)
 
 Next, we separate these 211 images and their corresponding masks into training and validiation sets. We have different sizes of the training set in our experiment but in the end the ratio between training and validation datasets is around 9:1. (Because we need to choose a trained model based on the performance on the validation set.)
+
+There are also some independent pre-processing steps we have implemented, which can be found under the `utils` directory. Below is the list of preprocessing method (The description of the implementations are given in the wiki), which we applied:
+ 1. Median Filter
+ 2. Optical Flow
+ 3. Beat- Frequency.
 
 ## Results
 Our best final score is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of what our results are like:
