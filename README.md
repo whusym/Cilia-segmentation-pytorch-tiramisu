@@ -7,7 +7,7 @@ The goal of this project is to identify Cilia from the given a series of images(
 <img src="media/cilia.png" width="800" class="center">
 (From the project write-up by Dr. Shannon Quinn. See https://quinngroup.github.io/people.html.)
 
-The project is implemented as part of a class requirement in the CSCI 8360 Data Science Practicum class at University of Georgia offered in  Spring 2018.
+The project is implemented as a part of a class requirement in the CSCI 8360 Data Science Practicum class offered in  Spring 2018 at University of Georgia .
 
 #Solution with the use of Tiramisu Network
 
