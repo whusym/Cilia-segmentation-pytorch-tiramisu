@@ -1,21 +1,24 @@
 # Semantic Segmentation on Cilia Images using Tiramisu Network
 
-This is a PyTorch implementation of [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation](https://arxiv.org/pdf/1611.09326.pdf). This repository is created over the course of two weeks for the project 4 of CSCI 8360 Data Science Practicum at University of Georgia in Spring 2018. The goal of this project is to conduct semantic segmentation on time-series cilia motion images. We use a 103-layer Fully Convoluted DenseNet (Tiramisu) to generate our test results.
+The project is implemented over the course of two weeks as a part of the CSCI 8360 Data Science Practicum class offered in Spring 2018 at University of Georgia. Here is some background. We know cilia are hairlike structures that are prevalent in almost every cell of your body. And the beat pattern of cilia in specific regions are related to a variety of syndromes in different organs. According to the project description, the goal of this project is "to identify Cilia from the given a series of images(frames) from a video taken with DIC optics of cilia biopsies." In the training dataset, there are total 211 videos available and each one is devided into a set of 100 images. A frame in this data set and its corresponding mask looks as below:
 
-This repository is benefited from Bendan Fortuner(@bfortuner)'s implementation (https://github.com/bfortuner/pytorch_tiramisu) and ZijunDeng(@ZijunDeng)'s implementation (https://github.com/ZijunDeng/pytorch-semantic-segmentation). Huge thanks to them!
+<img src="media/cilia.png" width="800" class="center">
+(from the project description by Dr. Shannon Quinn. See https://quinngroup.github.io/people.html for his website and https://github.com/dsp-uga/sp18/raw/master/projects/p4/project4.pdf for the project description.)
+
+# Implementation -- Tiramisu Network
+This repository is a PyTorch implementation of [The One Hundred Layers Tiramisu: Fully Convolutional DenseNets for Semantic Segmentation](https://arxiv.org/pdf/1611.09326.pdf). We use a 103-layer Fully Convoluted DenseNet (Tiramisu) to generate our test results.
+
+Our repository is benefited from Bendan Fortuner(@bfortuner)'s implementation (https://github.com/bfortuner/pytorch_tiramisu) and ZijunDeng(@ZijunDeng)'s implementation (https://github.com/ZijunDeng/pytorch-semantic-segmentation). Huge thanks to them!
 
 For other variations of DenseNet and the references for other preprocessing methods, check our [Wiki](https://github.com/dsp-uga/kampf/wiki) tab. (or press `g` `w` on your keyboard).
 
-<img src="media/cilia.png" width="800" class="center">
-(from the project write-up by Dr. Shannon Quinn. See https://quinngroup.github.io/people.html.)
-
-For more detailed information, see the notebook `demo.ipynb`.
+For more detailed information, check out the notebook `demo.ipynb`.
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. Again, the best way to get started is from the `demo.ipynb`.
 
-### My Hardware Specs
+### Hardware Specs
 - CPU: Intel(R) Core(TM) i7-5960X CPU @ 3.00GHz
 - RAM: 64 GB
 - GPU: Nvidia GeForce GTX 1080 Ti
@@ -58,12 +61,17 @@ $ jupyter notebook
 It should pop up your default browser, and the next step is just to open `demo.ipynb` and follow the instructions there.
 
 ## Data Processing
-There are in total 211 videos (each with 100 frames) of cilia data. But in our network, we only take the first frame of it (because although cilia moves in these frames, the range is still not much. We do not take the mean of 100 frames, because the mean would protentially also confuse the network. So we just still to the first one.)
+There are in total 211 videos (each with 100 frames) of cilia data. But in our network, we only take the first frame of it (because although cilia moves in these frames, the range is still not much. We do not take the mean of 100 frames, because the mean would protentially also confuse the network. So we just stick to the first one.)
 
 Next, we separate these 211 images and their corresponding masks into training and validiation sets. We have different sizes of the training set in our experiment but in the end the ratio between training and validation datasets is around 9:1. (Because we need to choose a trained model based on the performance on the validation set.)
 
+There are also some independent pre-processing steps we have implemented, which can be found under the `utils` directory. Below is the list of preprocessing method (The description of the implementations are given in the wiki), which we applied:
+ 1. Median Filter
+ 2. Optical Flow
+ 3. Beat- Frequency.
+
 ## Results
-Our best final result is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of what our results are like:
+Our best final score is 45.81168, which is an average IoU score for all 114 testing cilia videos/images. Here is an example of what our results are like:
 
 <img src="media/result1.png">
 
