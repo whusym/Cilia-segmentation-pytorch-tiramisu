@@ -4,7 +4,7 @@ performance of single model carries an IoU score 40.8. But since we have about t
 scores over 37, I stack these results together (i.e. add these image arrays together) and set a threshold
 to generate an ensembled result out of them. Here is the python scipt for it. Just put these script into
 the folder that store all the results (in different folders), and the script will put all processed images
-into a new /concatResults folder. 
+into a new /concatResults folder.
 '''
 
 from glob import glob
@@ -63,7 +63,7 @@ concat_imgs = [res_glob_imgs[i] + res_glob_imgs_2[i] + res_glob_imgs_3[i] + res_
                      + res_glob_imgs_15[i] + res_glob_imgs_16[i] + res_glob_imgs_17[i] + res_glob_imgs_18[i] + res_glob_imgs_19[i] + res_glob_imgs_20[i] + res_glob_imgs_21[i] + res_glob_imgs_22[i] + res_glob_imgs_23[i] for i in range(len(res_glob_imgs))]
 
 for i in range(len(concat_imgs)):
-    concat_imgs[i][concat_imgs[i] <= 13] = 0
+    concat_imgs[i][concat_imgs[i] <= 15] = 0
     concat_imgs[i][concat_imgs[i] != 0] = 2
     # concat_imgs[i][concat_imgs[i] <= 2] = 0
     imwrite('concatResults/' + res_glob_2[i][12:], concat_imgs[i].astype(np.uint8))
